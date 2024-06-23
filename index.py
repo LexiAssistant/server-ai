@@ -34,8 +34,8 @@ def extract_top_keywords(text, n=10):
     common_words = word_freq.most_common(n)
     return [word for word, freq in common_words]
 
-@app.route('/analyze_text', methods=['POST'])
-def analyze_text():
+@app.route('/process_text', methods=['POST'])
+def process_text():
     # 외부 URL에서 데이터 가져오기
     try:
         response = requests.get('https://epson.n-e.kr/data')
@@ -54,6 +54,3 @@ def analyze_text():
     top_keywords = extract_top_keywords(text)
 
     return jsonify({"keywords": keywords, "top_keywords": top_keywords, "summary": summary})
-
-if __name__ == '__main__':
-    app.run(debug=True, port=8000)
