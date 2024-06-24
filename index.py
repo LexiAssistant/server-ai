@@ -54,6 +54,3 @@ def process_text():
     top_keywords = extract_top_keywords(text)
 
     return jsonify({"keywords": keywords, "top_keywords": top_keywords, "summary": summary})
-
-if __name__ == '__main__':
-    app.run(debug=True)
