@@ -45,6 +45,7 @@ def analyze_text():
 
     data = response.json()
     text = data.get('text', '')
+    print(text)
 
     if not text:
         return jsonify({"error": "No text provided"}), 400
