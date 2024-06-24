@@ -6,7 +6,6 @@ from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 from collections import Counter
 import nltk
-import requests
 
 nltk.download('punkt')
 
@@ -36,16 +35,9 @@ def extract_top_keywords(text, n=10):
 
 @app.route('/analyze_text', methods=['POST'])
 def analyze_text():
-    # 외부 URL에서 데이터 가져오기
-    try:
-        response = requests.get('https://epson.n-e.kr/data')
-        response.raise_for_status()  # 요청이 성공하지 않으면 예외 발생
-    except requests.RequestException as e:
-        return jsonify({"error": f"Failed to fetch data from external source: {str(e)}"}), 500
-
-    data = response.json()
+    # 요청 본문에서 텍스트 데이터 가져오기
+    data = request.get_json()
     text = data.get('text', '')
-    print(text)
 
     if not text:
         return jsonify({"error": "No text provided"}), 400
